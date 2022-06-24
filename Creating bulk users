@@ -1,0 +1,27 @@
+import-Module ActiveDirectoryName
+$users = import-csv -path "C:\Book.csv"
+foreach ($user in $users)
+{
+    $firstname = $user.firstname
+    $middlename = $user.middlename
+    $lastname = $user.lastname    
+    $username = $user.username
+    $email = $user.email
+    $streetaddress = $user.streetaddress    
+    $city = $user.city
+    $zipcode = $user.zipcode    
+    $state = $user.state
+    $countrycode = $user.countrycode    
+    $department = $user.department    
+    $password = "your number"
+    $telephone = $user.telephone
+    $jobtitle = $user.jobtitle
+    $company = $user.company 
+    $OU = $user.OU
+    $maildomain = $user.maildomain
+    $UPN = $User.firstname + "." + $user.lastname + "@" + $user.maildomain
+
+
+    New-aduser -Name $firstname -DisplayName $firstname -Surname:$lastname -UserPrincipalName:$UPN -AccountPassword (ConvertTo-SecureString $password -asplaintext -force) -enabled $true -path "OU" -ChangePasswordAtLogon $false -PasswordNeverExpires $false
+
+}
